@@ -9,9 +9,18 @@
 </head>
 
 <body>
-    <h3>Please Choose A File to Upload to Start the  Test (It must be a csv file)</h3>
+    <h3>Please Choose A File to Upload to Start the  Test (It must be a .csv file and there must be a header row as the first row)</h3>
     <div>
+        <label for="hide">Columns to Hide (position in number, for example "5" is the 5th column of the original excel file. Delimit multiple columns with ",")</label>
+        <input type="text" id="hide" placeholder="Ex: '5' or '1,2,5'">
+        <br>
+
+        <label for="skip">Columns to skip hints, hints will not show on these columns (position in number, for example "5" is the 5th column of the original excel. Delimit multiple columns with ",")</label>
+        <input type="text" id="skip" placeholder="Ex: '5' or '1,2,5'">
+        <br>
+
         <input type="file" id="input" onchange="start_app(event)">
+        <br>
         <button type="button" onclick="reset()">Reshuffle The Current Test</button>
         <button type="button" onclick="reloadPage()">Reload Page to Upload Another File</button>
     </div>
