@@ -1,4 +1,9 @@
 #content td, #content th
 {
     padding:0 15px 0 15px;
+    text-align: center;
+}
+
+.red-border {
+    border: 1px solid red;
 }
