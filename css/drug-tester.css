@@ -1,6 +1,6 @@
-#content td, #content th
-{
-    padding:0 15px 0 15px;
+#content td,
+#content th {
+    padding: 0 15px 0 15px;
     text-align: center;
 }
 

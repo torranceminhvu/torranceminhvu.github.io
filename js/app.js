@@ -17,7 +17,7 @@ function start_app(event) {
     getCsvData(event).then(function() {
         var headerRow = csvData[0];
         csvData = shuffle(csvData.splice(1));
-        csvData.splice(0,0, headerRow);
+        csvData.splice(0, 0, headerRow);
 
         createHeaderRow();
         createDataRows()
@@ -34,7 +34,7 @@ function getCsvData(event) {
         if (file) {
             var reader = new FileReader();
 
-            reader.onload = function (event) {
+            reader.onload = function(event) {
                 csvData = $.csv.toArrays(event.target.result);
                 rows = csvData.length;
                 cols = csvData[0].length;
@@ -57,11 +57,11 @@ function createHeaderRow() {
     for (var i = 0; i < cols; i++) {
         // check if we should show this column when constructing our test
         if (hideList.indexOf(i) === -1) {
-           $('<th/>', {
-               text: csvData[0][i]
-           }).appendTo('#header');
-       }
-   }
+            $('<th/>', {
+                text: csvData[0][i]
+            }).appendTo('#header');
+        }
+    }
 }
 
 
@@ -154,12 +154,12 @@ function addCollapsedRow(idToAppendTo, row) {
     for (var i = 0; i < cols; i++) {
         // check if we should show this column when constructing our test
         if (hideList.indexOf(i) === -1) {
-          $('<td/>', {
-              id: `collapse-${row}`,
-              text: csvData[row][i]
-          }).appendTo(`#collapse-${row}`);
-      }
-  }
+            $('<td/>', {
+                id: `collapse-${row}`,
+                text: csvData[row][i]
+            }).appendTo(`#collapse-${row}`);
+        }
+    }
 }
 
 // reshuffle hints for current test
@@ -169,7 +169,7 @@ function reset() {
 
         var headerRow = csvData[0];
         csvData = shuffle(csvData.splice(1));
-        csvData.splice(0,0, headerRow);
+        csvData.splice(0, 0, headerRow);
 
         createHeaderRow();
         createDataRows()
@@ -186,22 +186,21 @@ function reloadPage() {
 
 // shuffles an array
 function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+    var currentIndex = array.length,
+        temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
 
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
 
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
 
-  return array;
+    return array;
 }
-
-
