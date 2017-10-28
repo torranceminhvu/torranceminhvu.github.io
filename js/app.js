@@ -13,6 +13,9 @@ function start_app(event) {
         return parseInt(x, 10) - 1;
     });
 
+    // skipList should also include hideList, this takes the union of both lists
+    skipList = [...new Set([...hideList, ...skipList])];
+
     // load data from csf file and construct test
     getCsvData(event).then(function() {
         var headerRow = csvData[0];
