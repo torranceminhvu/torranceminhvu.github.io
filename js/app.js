@@ -74,11 +74,10 @@ function createDataRows() {
     var skipFound = false;
     // loop through rows in csv
     for (var i = 1; i < rows; i++) {
-        // randomize a column to show as a hint, exception is skip column 5, random from 0 to col-1
+        // randomize a column to show as a hint
         hintIndex = Math.floor(Math.random() * cols);
         while (true) {
             skipList.forEach(function(skipCol) {
-                // console.log(skipCol, hintIndex);
                 if (hintIndex === skipCol) {
                     hintIndex = Math.floor(Math.random() * cols);
 
@@ -109,12 +108,13 @@ function createDataRows() {
                     id: `td-${i}-${j}`
                 }).appendTo(`#row-${i}`);
 
+                // hint column
                 if (hintIndex === j) {
                     $('<h5/>', {
                         id: `data-${i}-${j}`,
                         text: csvData[i][j]
                     }).appendTo(`#td-${i}-${j}`);
-                } else {
+                } else { // column for user to fill out
                     $('<input/>', {
                         id: `data-${i}-${j}`,
                         type: 'text',
