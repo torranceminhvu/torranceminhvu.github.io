@@ -27,7 +27,8 @@ function startApp(event) {
         csvData.splice(0, 0, headerRow);
 
         createHeaderRow();
-        createDataRows()
+        createDataRows();
+        autosize($('textarea'));
 
     }, function(err) {
         console.log(err);
@@ -119,9 +120,11 @@ function createDataRows() {
                         text: csvData[i][j]
                     }).appendTo(`#td-${i}-${j}`);
                 } else { // column for user to fill out
-                    $('<input/>', {
+                    $('<textarea/>', {
                         id: `data-${i}-${j}`,
-                        type: 'text',
+                        // type: 'text',
+                        rows: 1,
+                        cols: 20,
                         placeholder: csvData[0][j]
                     }).appendTo(`#td-${i}-${j}`);
                 }
