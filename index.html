@@ -17,7 +17,15 @@
         <label for="skip">Columns to skip hints, hints will not show on these columns (position in number, for example "5" is the 5th column of the original excel. Delimit multiple columns with ",")</label>
         <input type="text" id="skip" placeholder="Ex: '5' or '1,2,5'">
         <br>
-        <input type="file" id="input" onchange="start_app(event)">
+
+        <span class="bold padding-right">Answer Will Automatically Display When Tabbed Over (Can toggle in the middle of a test):</span>
+        <input type="radio" id="on" name="auto-answer" onclick="toggleAutoAnswer(this)" value="true" checked>
+        <label class="normal-font-size" for="on">On</label>
+        <input type="radio" id="off" name="auto-answer" onclick="toggleAutoAnswer(this)" value="false">
+        <label class="normal-font-size" for="off">Off</label>
+        <br>
+
+        <input type="file" id="input" onchange="startApp(event)">
         <br>
         <button type="button" onclick="reset()">Reshuffle The Current Test</button>
         <button type="button" onclick="reloadPage()">Reload Page to Upload Another File</button>
@@ -25,8 +33,10 @@
     <br>
     <br>
     <br>
+
     <table id="content">
     </table>
+
     <br>
     <br>
     <br>
