@@ -1,0 +1,31 @@
+body {
+    width: 700px;
+    margin: 20px auto;
+    background-image: url("../image/background.jpg");
+    background-attachment: fixed;
+}
+
+#content {
+    font-size: 25px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: rgba(231, 231, 231, 0.8);
+}
+
+#content th {
+    text-align: center;
+    border: 1px solid black;
+}
+
+#title {
+    width: 75%;
+}
+
+#chapter {
+    width: 25%
+}
+
+#content td {
+    text-align: center;
+    border: 1px solid black;
+}

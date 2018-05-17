@@ -1,6 +1,12 @@
 const LINK_PREFIX = 't3';
-var baseRedditUrl = 'https://www.reddit.com';
-var frontPageUrl = 'https://www.reddit.com/r/QidianUnderground/.json?limit=100';
+const baseRedditUrl = 'https://www.reddit.com';
+const frontPageUrl = 'https://www.reddit.com/r/QidianUnderground/.json?limit=100';
+
+const LOHP_IDENTIFIER = [
+    'library of',
+    'library',
+    'lohp'
+];
 
 function getRedditJson(url) {
     return new Promise(function (resolve, reject) {
@@ -25,20 +31,20 @@ function ParseAndDisplayJson(data) {
     var posts = json.data.children;
 
     for (var i = 0; i < count; i++) {
-        if (posts[i].kind === LINK_PREFIX && hasNovelName(posts[i].data.title.toLowerCase())) {
+        if (posts[i].kind === LINK_PREFIX && hasNovelName(posts[i].data.title.toLowerCase(), LOHP_IDENTIFIER)) {
             var permalinkAnchor = document.createElement('a');
             permalinkAnchor.innerHTML = posts[i].data.title;
             permalinkAnchor.href = baseRedditUrl + posts[i].data.permalink;
             permalinkAnchor.target = '_blank'; // force new tab on click
 
             var chapterAnchor = document.createElement('a');
-            chapterAnchor.innerHTML = ' (Chapter)';
+            chapterAnchor.innerHTML = 'Chapter';
             chapterAnchor.href = posts[i].data.url;
             chapterAnchor.target = '_blank'; // force new tab on click
 
-            div.appendChild(permalinkAnchor);
-            div.appendChild(chapterAnchor);
-            div.appendChild(document.createElement('br'));
+            var tr = createTrWithContent([createTdWithContent(permalinkAnchor), createTdWithContent(chapterAnchor)]);
+            div.appendChild(tr);
+            //div.appendChild(document.createElement('br'));
         }
     }
 
@@ -53,15 +59,23 @@ function ParseAndDisplayJson(data) {
     }
 }
 
-function hasNovelName(title) {
-    var possibleTitles = [
-        'library of',
-        'library',
-        'lohp'
-    ];
+function createTdWithContent(content) {
+    var td = document.createElement('td');
+    td.appendChild(content);
+    return td;
+}
 
-    for (var i = 0; i < possibleTitles.length; i++) {
-        if (title.includes(possibleTitles[i])) {
+function createTrWithContent(contentArray) {
+    var tr = document.createElement('tr');
+    for (var index in contentArray) {
+        tr.appendChild(contentArray[index]);
+    }
+    return tr;
+}
+
+function hasNovelName(title, titlesToMatch) {
+    for (var i = 0; i < titlesToMatch.length; i++) {
+        if (title.includes(titlesToMatch[i])) {
             return true;
         }
     }
