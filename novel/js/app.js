@@ -22,10 +22,19 @@ const TMW_IDENTIFIER = [
     'tmw'
 ];
 
+const TKA_IDENTIFIER = [
+    'the kin\'s avatar',
+    'the kings avatar',
+    'tka',
+    'kings avatar',
+    'king\'s avatar'
+];
+
 const BOOK_CAROUSEL = [
     LOHP_IDENTIFIER,
     RTW_IDENTIFIER,
-    TMW_IDENTIFIER
+    TMW_IDENTIFIER,
+    TKA_IDENTIFIER
 ];
 
 var current_book_index = 0;
@@ -129,7 +138,7 @@ function clearTable() {
 
 function abortAlllActiveXhrRequests() {
     if (xhr_array.length > 0) {
-        for (var i = 0; i < xhr_array.length ; i++) {
+        for (var i = 0; i < xhr_array.length; i++) {
             xhr_array[i].abort()
         }
         xhr_array.length = 0;
