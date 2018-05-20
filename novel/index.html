@@ -9,13 +9,17 @@
 </head>
 
 <body>
-    <table id="content">
-        <tr>
-            <th id="title">Title</th>
-            <th id="chapter"> Chapter Link</th>
-        </tr>
-    </table>
+    <div id="chevron-container">
+        <span id="left-chevron" onclick="toggleLeftArrow()" accesskey="z">
+            <span class="chevron left"></span>
+        </span>
+        <span id="right-chevron" onclick="toggleRightArrow()" accesskey="x">
+            <span class="chevron right"></span>
+        </span>
+    </div>
 
+    <table id="table-content">
+    </table>
     <script type="text/javascript" src="js/app.js"></script>
 </body>
 

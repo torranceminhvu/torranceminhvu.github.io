@@ -1,20 +1,25 @@
 body {
-    width: 700px;
-    margin: 20px auto;
     background-image: url("../image/background.jpg");
     background-attachment: fixed;
+    width: 750px;
+    margin: 20px auto;
 }
 
-#content {
-    font-size: 25px;
-    width: 100%;
+#table-content {
+    font-size: 30px;
     border-collapse: collapse;
     background-color: rgba(231, 231, 231, 0.8);
 }
 
-#content th {
+#table-content th {
     text-align: center;
     border: 1px solid black;
+}
+
+#table-content td {
+    text-align: center;
+    border: 1px solid black;
+    padding: 5px;
 }
 
 #title {
@@ -25,7 +30,39 @@ body {
     width: 25%
 }
 
-#content td {
-    text-align: center;
-    border: 1px solid black;
+.chevron::before {
+    border-style: solid;
+    border-width: 1em 1em 0 0;
+    content: '';
+    display: inline-block;
+    height: 1.8em;
+    left: 0.6em;
+    position: relative;
+    top: 0.6em;
+    transform: rotate(-45deg);
+    vertical-align: top;
+    width: 1.8em;
+    border-color: white;
+}
+
+.chevron.right:before {
+    left: 0;
+    transform: rotate(45deg);
+}
+
+.chevron.left:before {
+    left: 0.25em;
+    transform: rotate(-135deg);
+}
+
+#chevron-container {
+    margin-bottom: 30px;
+}
+
+#left-chevron {
+    margin-left: 5%;
+}
+
+#right-chevron {
+    margin-left: 75%;
 }
