@@ -1,6 +1,5 @@
-const LINK_PREFIX = 't3';
 const BASE_REDDIT_URL = 'https://www.reddit.com';
-const FRONT_PAGE_URL = 'https://www.reddit.com/r/QidianUnderground/.json?limit=100';
+const PUSHSHIFT_URL = 'https://api.pushshift.io/reddit/submission/search/?subreddit=QidianUnderground&limit=500';
 
 var xhr_array = [];
 
@@ -19,6 +18,7 @@ const RTW_IDENTIFIER = [
 
 const TMW_IDENTIFIER = [
     'true martial world',
+    'true martial',
     'tmw'
 ];
 
@@ -49,20 +49,20 @@ function getRedditJson(url) {
 function ParseAndDisplayJson(data, novel) {
     var div = document.getElementById('table-content');
     var json = JSON.parse(data);
-    var nextPageIndex = json.data.after;
-    var count = json.data.dist;
-    var posts = json.data.children;
+    var createdUtc = null;
+    var posts = json.data;
 
-    for (var i = 0; i < count; i++) {
-        if (posts[i].kind === LINK_PREFIX && hasNovelName(posts[i].data.title.toLowerCase(), novel)) {
+    for (var i = 0; i < posts.length; i++) {
+        createdUtc = posts[i].created_utc;
+        if (hasNovelName(posts[i].title.toLowerCase(), novel)) {
             var permalinkAnchor = document.createElement('a');
-            permalinkAnchor.innerHTML = posts[i].data.title;
-            permalinkAnchor.href = BASE_REDDIT_URL + posts[i].data.permalink;
+            permalinkAnchor.innerHTML = posts[i].title;
+            permalinkAnchor.href = BASE_REDDIT_URL + posts[i].permalink;
             permalinkAnchor.target = '_blank'; // force new tab on click
 
             var chapterAnchor = document.createElement('a');
             chapterAnchor.innerHTML = 'Chapter';
-            chapterAnchor.href = posts[i].data.url;
+            chapterAnchor.href = posts[i].url;
             chapterAnchor.target = '_blank'; // force new tab on click
 
             var chapterTr = createTrWithContent([
@@ -70,13 +70,12 @@ function ParseAndDisplayJson(data, novel) {
                 createElementWithContent(chapterAnchor, 'td', {})
             ]);
             div.appendChild(chapterTr);
-            //div.appendChild(document.createElement('br'));
         }
     }
 
     // go until end of reddit history
-    if (nextPageIndex != null) {
-        getRedditJson(`${FRONT_PAGE_URL}&after=${nextPageIndex}`)
+    if (createdUtc != null) {
+        getRedditJson(`${PUSHSHIFT_URL}&before=${createdUtc}`)
             .then(function (data2) {
                 ParseAndDisplayJson(data2, novel);
             }, function (error) {
@@ -169,7 +168,7 @@ function toggleRightArrow() {
 }
 
 function startApp(novel) {
-    getRedditJson(FRONT_PAGE_URL)
+    getRedditJson(PUSHSHIFT_URL)
         .then(function (data) {
             createHeaderRow();
             ParseAndDisplayJson(data, novel);
